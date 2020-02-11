@@ -5,7 +5,7 @@ dotenv.config()
 const server = express()
 const mongoose = require("mongoose")
 const authRouter = require("./src/routes/auth")
-const { basic } = require("./src/utils/auth")
+const { basic, adminOnly, setUserInfo } = require("./src/utils/auth")
 
 const connection = mongoose.connect(process.env.MONGODB, { useNewUrlParser: true, useUnifiedTopology: true})
 connection.then(db => console.log("connected to mongo"), err=> console.log(err))
@@ -13,8 +13,9 @@ connection.then(db => console.log("connected to mongo"), err=> console.log(err))
 server.use(express.json())
 server.use("/auth", authRouter)
 
-server.get("/testAuth", basic, async (req, res) =>{
-    res.send("OK!")
+server.get("/testAuth", basic, setUserInfo, async (req, res) =>{
+    res.send(req.user)
+
 })
 
 // const users = [

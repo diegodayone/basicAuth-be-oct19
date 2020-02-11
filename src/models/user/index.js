@@ -6,7 +6,10 @@ const userSchema = new mongoose.Schema({
         role: {
             type: String,
             required: true
-        }
+        },
+        firstName: String,
+        lastName: String,
+        email: String
         //username from passportlocalmongoose
         //passwordhash from passportlocalmongoose
         //salt from passportlocalmongoose
